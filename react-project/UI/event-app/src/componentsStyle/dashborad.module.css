@@ -1,0 +1,70 @@
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.dialog {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px hwb(0 0% 100% / 0.1);
+    height: 500px;
+    width: 300px;
+    
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 400px;
+    width: 100%;
+}
+
+input{
+    padding: 10px 10px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+button {
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.formbtn{
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+}
+.foot{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cardModel {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 200px;
+    margin-left: 20px;
+}
