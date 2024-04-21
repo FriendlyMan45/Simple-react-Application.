@@ -6,6 +6,7 @@ import DataContext from '../context/DataContext';
 function Nav(){
     const {setIsVisible, isVisible, loggedStatus} = useContext(DataContext);
     return(
+        <>
         <footer className={style.foot}>
             <h3>Logo</h3>
             <div>
@@ -13,8 +14,9 @@ function Nav(){
             </div>
             {loggedStatus &&
             <button onClick={()=> setIsVisible(!isVisible)}>Create Campaign</button>}
-            <hr/>
         </footer>
+        <hr />
+        </>
     );
 }
 

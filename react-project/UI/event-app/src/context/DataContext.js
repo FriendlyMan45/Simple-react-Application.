@@ -1,6 +1,7 @@
 import { createContext ,useState, useEffect} from "react";
 import campaignFields from '../components/staticData';
 import api from '../service/api';
+import { useNavigate } from 'react-router-dom';
 
 const DataContext = createContext({});
 export const DataProvider=({children})=>{
@@ -9,6 +10,7 @@ export const DataProvider=({children})=>{
     const [isVisible, setIsVisible] = useState(false);
     const [formMode,setFormMode] = useState('create');
     const [loggedStatus, setLoggedStatus] = useState(false);
+    const nagivate = useNavigate();
     const [campaign,setCampaign] = useState({
         brandName:'',
         budget:'',
@@ -89,7 +91,7 @@ export const DataProvider=({children})=>{
         <DataContext.Provider value={{
             campaignFields, campaign , setCampaign,formMode, setFormMode, loggedStatus, setLoggedStatus,
             isVisible, setIsVisible, campaignAll, setCampaignAll, isLoading, setIsLoading,
-            handleChange, handleEdit, handleDelete, handleCancel, handleSubmit
+            handleChange, handleEdit, handleDelete, handleCancel, handleSubmit, nagivate
         }}>
             {children}
         </DataContext.Provider>

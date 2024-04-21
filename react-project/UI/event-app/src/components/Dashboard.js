@@ -10,10 +10,13 @@ import Search from "./search";
 function DashBoard(){
 
     const [search,setSearch]= useState('');
-    const {isVisible, isLoading, setLoggedStatus,campaignAll} = useContext(DataContext);
+    const {isVisible, isLoading, setLoggedStatus,campaignAll, nagivate} = useContext(DataContext);
     useEffect(()=>{
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            nagivate('/');
+        }
         setLoggedStatus(true);
-    },[setLoggedStatus])
+    },[setLoggedStatus, nagivate])
     
     return(
     <>

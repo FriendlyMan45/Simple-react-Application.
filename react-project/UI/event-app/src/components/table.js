@@ -5,15 +5,19 @@ import DataContext from '../context/DataContext';
 function CampaignTable() {
     const { id } = useParams();
     console.log(id);
-    const { campaignAll, setLoggedStatus } = useContext(DataContext);
+    const { campaignAll, setLoggedStatus, nagivate } = useContext(DataContext);
     const [campaign, setCampaign] = useState(null);
 
     useEffect(() => {
-        const foundCampaign = campaignAll.find(c => c.id.toString()=== id);
-        console.log(foundCampaign);
-        setCampaign(foundCampaign);
-        setLoggedStatus(false);
-    }, [id, campaignAll,setLoggedStatus]);
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            nagivate('/');
+        }
+            const foundCampaign = campaignAll.find(c => c.id.toString()=== id);
+            console.log(foundCampaign);
+            setCampaign(foundCampaign);
+            setLoggedStatus(false);
+        
+    }, [id, campaignAll,setLoggedStatus,nagivate]);
 
     return (
         <table>
