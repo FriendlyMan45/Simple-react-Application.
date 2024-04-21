@@ -1,12 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import api from '../service/api';
 import style from '../componentsStyle/dashborad.module.css';
 import DataContext from '../context/DataContext';
 
 function LoginRegister(){
-    const {setLoggedStatus} = useContext(DataContext);
-    const nagivate = useNavigate();
+    const {setLoggedStatus, nagivate} = useContext(DataContext);
     const [status,setStatus] = useState('login');
     const [formData,setFormData] = useState({
         email:'',
@@ -23,28 +21,39 @@ function LoginRegister(){
         setFormData({...formData,[e.target.name]:e.target.value});
     }
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault();
         console.log(status);
-
-        if(status === 'login'){
-          const response = api.post("/api/CampaignDB/user",formData);
-          nagivate('/dashboard');
-        }
-        else if(status === 'Register'){
-           if(formData.password !== formData.confirmPassword){
-           return alert('Enter password is not  matching');
-           }
-        else {
-          const response = api.post("/api/CampaignDB/userPost",formData);
-          setStatus("Login");
-          setFormData({
-            email:'',
-            password:'',
-            confirmPassword:''
-          })
-        }
-    }
+        if (status === 'login') {
+          try {
+              const response = await api.post("/api/CampaignDB/user", formData);
+              console.log(response);
+              sessionStorage.setItem("isLoggedIn", true);
+              nagivate('/dashboard'); 
+          } catch (error) {
+              alert(error.response ? error.response.data : "No response data");
+          }
+      } else if (status === 'Register') {
+          if (formData.password !== formData.confirmPassword) {
+              alert('Entered passwords do not match');
+          }
+          if (formData.email.length !== 0 && formData.password.length !== 0) {
+              try {
+                  const response = await api.post("/api/CampaignDB/userPost", formData);
+                  alert('Please login now');
+                  setStatus("Login");
+                  setFormData({
+                      email: '',
+                      password: '',
+                      confirmPassword: ''
+                  });
+              } catch (error) {
+                  console.error("Registration error:", error.response ? error.response.data : "No response data");
+              }
+          } else {
+              alert('Please fill in all fields');
+          }
+      }
   }
 
     return(
